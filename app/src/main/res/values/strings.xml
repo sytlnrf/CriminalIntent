@@ -7,4 +7,5 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="crime_title_hint">Enter a title for the criem.</string>
+    <string name="title_activity_ss">SS</string>
 </resources>
