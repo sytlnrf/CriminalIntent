@@ -11,4 +11,7 @@
     <string name="crime_detail_label">Details</string>
     <string name="crime_solved_label">Solved</string>
 
+    <string name="crime_title">Crimes</string>
+    <string name="title_activity_single_fragment">SingleFragmentActivity</string>
+    <string name="title_activity_crime_list">CrimeListActivity</string>
 </resources>

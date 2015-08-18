@@ -1,38 +1,33 @@
-package com.sytlnrf.shengyitao.criminalitent;
+package com.sytlnrf.shengyitao.criminalitent.crimeFragmentActivity;
 
 import android.net.Uri;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import com.sytlnrf.shengyitao.criminalitent.R;
 import com.sytlnrf.shengyitao.criminalitent.crimefragment.CrimeFragment;
+import com.sytlnrf.shengyitao.criminalitent.crimefragment.CrimeListFragment;
 
-public class CrimeActivity extends FragmentActivity implements CrimeFragment.OnFragmentInteractionListener {
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_crime);
-
-        FragmentManager mFragmentManager = getSupportFragmentManager();
-        Fragment fragment = mFragmentManager.findFragmentById(R.id.fragmentcontainer);
-        if (fragment == null){
-            fragment = new CrimeFragment();
-            mFragmentManager.beginTransaction().add(R.id.fragmentcontainer,fragment).commit();
-        }
-    }
+public class CrimeListActivity extends SingleFragmentActivity implements CrimeListFragment.OnFragmentInteractionListener{
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    protected Fragment createFragment() {
+        return new CrimeListFragment();
     }
+
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_crime_list);
+//    }
 
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_crime, menu);
+//        getMenuInflater().inflate(R.menu.menu_crime_list, menu);
 //        return true;
 //    }
 //
@@ -50,4 +45,10 @@ public class CrimeActivity extends FragmentActivity implements CrimeFragment.OnF
 //
 //        return super.onOptionsItemSelected(item);
 //    }
+
+
+    @Override
+    public void onFragmentInteraction(String id) {
+
+    }
 }

@@ -1,38 +1,31 @@
-package com.sytlnrf.shengyitao.criminalitent;
+package com.sytlnrf.shengyitao.criminalitent.crimeFragmentActivity;
 
-import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
-import com.sytlnrf.shengyitao.criminalitent.crimefragment.CrimeFragment;
+import com.sytlnrf.shengyitao.criminalitent.R;
 
-public class CrimeActivity extends FragmentActivity implements CrimeFragment.OnFragmentInteractionListener {
+public abstract class SingleFragmentActivity extends FragmentActivity {
 
-
+    protected abstract Fragment createFragment();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_crime);
-
-        FragmentManager mFragmentManager = getSupportFragmentManager();
-        Fragment fragment = mFragmentManager.findFragmentById(R.id.fragmentcontainer);
+        setContentView(R.layout.activity_fragment);
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.fragmentcontainer);
         if (fragment == null){
-            fragment = new CrimeFragment();
-            mFragmentManager.beginTransaction().add(R.id.fragmentcontainer,fragment).commit();
+            fragment = createFragment();
+            fm.beginTransaction().add(R.id.fragmentcontainer,fragment).commit();
         }
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_crime, menu);
+//        getMenuInflater().inflate(R.menu.menu_single, menu);
 //        return true;
 //    }
 //
