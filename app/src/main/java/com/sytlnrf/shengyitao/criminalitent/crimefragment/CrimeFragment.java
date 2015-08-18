@@ -9,10 +9,19 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.sytlnrf.shengyitao.criminalitent.R;
 import com.sytlnrf.shengyitao.criminalitent.model.Crime;
+
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -35,6 +44,8 @@ public class CrimeFragment extends Fragment {
 
     private Crime mCrime;
     private EditText mEditText;
+    private Button mDateButton;
+    private CheckBox mSolvedCheckbox;
 
 
     private OnFragmentInteractionListener mListener;
@@ -62,6 +73,8 @@ public class CrimeFragment extends Fragment {
     }
     private void initView(View v){
         mEditText = (EditText)v.findViewById(R.id.crime_title_edittext);
+        mDateButton = (Button)v.findViewById(R.id.crime_date_button);
+        mSolvedCheckbox = (CheckBox)v.findViewById(R.id.crime_solved_checkbox);
     }
 
     @Override
@@ -95,6 +108,16 @@ public class CrimeFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+        SimpleDateFormat mDateForma = new SimpleDateFormat("EEEE, MMMM dd, yyyy");
+
+        mDateButton.setText(mDateForma.format(mCrime.getmDate()));
+        mDateButton.setEnabled(false);
+        mSolvedCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mCrime.setmSolved(isChecked);
             }
         });
         return mView;
