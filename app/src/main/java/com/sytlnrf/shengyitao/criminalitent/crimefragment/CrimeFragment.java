@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.sytlnrf.shengyitao.criminalitent.R;
+import com.sytlnrf.shengyitao.criminalitent.model.Crime;
 
 
 /**
@@ -28,6 +32,10 @@ public class CrimeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private Crime mCrime;
+    private EditText mEditText;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -52,6 +60,9 @@ public class CrimeFragment extends Fragment {
     public CrimeFragment() {
         // Required empty public constructor
     }
+    private void initView(View v){
+        mEditText = (EditText)v.findViewById(R.id.crime_title_edittext);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,13 +71,33 @@ public class CrimeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        mCrime = new Crime();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_crime, container, false);
+        View mView = inflater.inflate(R.layout.fragment_crime, container, false);
+        initView(mView);
+        mEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                mCrime.setmTitle(s.toString());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        return mView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
