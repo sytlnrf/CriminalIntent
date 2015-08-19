@@ -1,4 +1,4 @@
-package com.sytlnrf.shengyitao.criminalitent;
+package com.sytlnrf.shengyitao.criminalitent.CrimeActivity;
 
 import android.net.Uri;
 import android.support.v4.app.Fragment;
@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
+import com.sytlnrf.shengyitao.criminalitent.R;
 import com.sytlnrf.shengyitao.criminalitent.crimefragment.CrimeFragment;
 
 public class CrimeActivity extends FragmentActivity implements CrimeFragment.OnFragmentInteractionListener {
@@ -14,7 +15,7 @@ public class CrimeActivity extends FragmentActivity implements CrimeFragment.OnF
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_crime);
+        setContentView(R.layout.activity_fragment);
 
         FragmentManager mFragmentManager = getSupportFragmentManager();
         Fragment fragment = mFragmentManager.findFragmentById(R.id.fragmentcontainer);

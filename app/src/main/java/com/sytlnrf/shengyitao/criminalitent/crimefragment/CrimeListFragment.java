@@ -1,17 +1,22 @@
 package com.sytlnrf.shengyitao.criminalitent.crimefragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.sytlnrf.shengyitao.criminalitent.CrimeActivity.CrimeActivity;
 import com.sytlnrf.shengyitao.criminalitent.R;
 import com.sytlnrf.shengyitao.criminalitent.crimefragment.dummy.DummyContent;
 import com.sytlnrf.shengyitao.criminalitent.model.Crime;
@@ -32,6 +37,7 @@ public class CrimeListFragment extends ListFragment implements AbsListView.OnIte
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String TAG = "CrimeListFragment";
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -52,6 +58,7 @@ public class CrimeListFragment extends ListFragment implements AbsListView.OnIte
      * Views.
      */
     private ListAdapter mAdapter;
+
 
     // TODO: Rename and change types of parameters
     public static CrimeListFragment newInstance(String param1, String param2) {
@@ -83,8 +90,13 @@ public class CrimeListFragment extends ListFragment implements AbsListView.OnIte
 
 
         // TODO: Change Adapter to display your content
-        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+//        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
+//                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+//        ArrayAdapter<Crime> adapter = new ArrayAdapter<Crime>(getActivity(),android.R.layout.simple_list_item_1,crimes);
+//        setListAdapter(adapter);
+        CrimeAdapter crimeAdapter = new CrimeAdapter(crimes);
+        setListAdapter(crimeAdapter);
+
     }
 
     @Override
@@ -126,6 +138,15 @@ public class CrimeListFragment extends ListFragment implements AbsListView.OnIte
             // fragment is attached to one) that an item has been selected.
             mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
         }
+
+    }
+    @Override
+    public void onListItemClick(ListView l,View v,int p,long id){
+//        Crime c = (Crime)(getListAdapter()).getItem(p);
+        Crime c = ((CrimeAdapter)getListAdapter()).getItem(p);
+        Log.d(TAG,c.getmTitle()+" get selected!");
+        Intent i = new Intent(getActivity(), CrimeActivity.class);
+        startActivity(i);
     }
 
     /**
@@ -154,6 +175,25 @@ public class CrimeListFragment extends ListFragment implements AbsListView.OnIte
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(String id);
+    }
+    private class CrimeAdapter extends ArrayAdapter<Crime>{
+        public CrimeAdapter(ArrayList<Crime> crimes){
+            super(getActivity(),0,crimes);
+        }
+        @Override
+        public View getView(int position,View convertView,ViewGroup parent){
+            if (convertView == null){
+                 convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_crime,null);
+            }
+            Crime c = getItem(position);
+            TextView titileTextView = (TextView)convertView.findViewById(R.id.crime_list_item_titletextview);
+            titileTextView.setText(c.getmTitle());
+            TextView dateTextView = (TextView)convertView.findViewById(R.id.crime_list_item_datetextview);
+            dateTextView.setText(c.getmDate().toString());
+            CheckBox solvedCheckBox = (CheckBox)convertView.findViewById(R.id.crime_list_item_solvedcheckBox);
+            solvedCheckBox.setChecked(c.ismSolved());
+            return convertView;
+        }
     }
 
 }
